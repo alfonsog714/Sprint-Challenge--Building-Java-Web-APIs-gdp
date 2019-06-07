@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -61,4 +62,20 @@ public class GDPController {
         return new ResponseEntity<>(rtnGdp, HttpStatus.OK);
     }
 
+
+//    localhost:2019/data/economy/table
+    @GetMapping(value = "/economy/table")
+    public ModelAndView displayGDPTable(HttpServletRequest req)
+    {
+        logger.info(req.getRequestURI() + " accessed");
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("GDP");
+
+       Collections.sort(GdpApplication.ourGdpList.gdpList, new GDPComp());
+
+       mav.addObject("gdpList", GdpApplication.ourGdpList.gdpList);
+
+       return mav;
+    }
 }
