@@ -1,7 +1,10 @@
 package local.alfonso.gdp.controller;
 
 
+import local.alfonso.gdp.GDPComp;
+import local.alfonso.gdp.GDPList;
 import local.alfonso.gdp.GdpApplication;
+import local.alfonso.gdp.model.GDP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/data")
@@ -25,6 +30,16 @@ public class GDPController {
 
         GdpApplication.ourGdpList.gdpList.sort((g1, g2) -> g1.getName().compareToIgnoreCase(g2.getName()));
         return new ResponseEntity<>(GdpApplication.ourGdpList.gdpList, HttpStatus.OK);
+    }
+
+//    localhost:2019/data/economy
+    @GetMapping(value = "/economy", produces = {"application/json"})
+    public ResponseEntity<?> getEconomy(HttpServletRequest req)
+    {
+        logger.info(req.getRequestURI() + " accessed");
+
+       Collections.sort(GdpApplication.ourGdpList.gdpList, new GDPComp());
+       return new ResponseEntity<>(GdpApplication.ourGdpList.gdpList, HttpStatus.OK);
     }
 
 
