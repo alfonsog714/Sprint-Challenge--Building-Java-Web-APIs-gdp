@@ -78,4 +78,16 @@ public class GDPController {
 
        return mav;
     }
+
+//    localhost:2019/data/country/stats/median
+    @GetMapping(value = "/country/stats/median", produces = {"application/json"})
+    public ResponseEntity<?> getMedian(HttpServletRequest req)
+    {
+        logger.info(req.getRequestURI() + " accessed");
+
+        GdpApplication.ourGdpList.gdpList.sort((g1, g2) -> (int) (g1.getGdp() - g2.getGdp()));
+
+        GDP rtnGdp = GdpApplication.ourGdpList.gdpList.get((GdpApplication.ourGdpList.gdpList.size() / 2) +1);
+        return new ResponseEntity<>(rtnGdp, HttpStatus.OK);
+    }
 }
