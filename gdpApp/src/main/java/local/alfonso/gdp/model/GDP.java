@@ -20,11 +20,21 @@ public class GDP {
         this.gdp = Long.parseLong(gdp);
     }
 
+    public GDP(String name, long gdp)
+    {
+        this.id = counter.incrementAndGet();
+        this.name = name;
+        this.gdp = gdp;
+    }
+
     public GDP(GDP toClone)
     {
         this.id = counter.incrementAndGet();
         this.name = toClone.getName();
         this.gdp = toClone.getGdp();
+    }
+
+    public GDP() {
     }
 
     public long getId() {

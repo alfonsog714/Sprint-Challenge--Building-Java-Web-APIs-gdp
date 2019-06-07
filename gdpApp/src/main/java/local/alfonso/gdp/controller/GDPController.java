@@ -91,4 +91,22 @@ public class GDPController {
         GDP rtnGdp = GdpApplication.ourGdpList.gdpList.get((GdpApplication.ourGdpList.gdpList.size() / 2) + 1);
         return new ResponseEntity<>(rtnGdp, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/total", produces = {"application/json"})
+    public ResponseEntity<?> getTotal(HttpServletRequest req)
+    {
+        logger.info(req.getRequestURI() + " accessed");
+        long sum = 0;
+        GDP rtnGdp = new GDP();
+        if (GdpApplication.ourGdpList.gdpList.size() == 0) {
+            throw new ResourceNotFoundException("The list of countries was not found, or is empty");
+        } else {
+            for (GDP g : GdpApplication.ourGdpList.gdpList) {
+                sum += g.getGdp();
+            }
+            rtnGdp.setName("Total");
+            rtnGdp.setGdp(sum);
+        }
+        return new ResponseEntity<>(rtnGdp, HttpStatus.OK);
+    }
 }
