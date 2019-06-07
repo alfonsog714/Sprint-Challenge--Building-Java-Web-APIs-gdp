@@ -1,4 +1,4 @@
-package local.alfonsog.bunnies.exception;
+package local.alfonso.gdp.exception;
 
 public class ValidationError
 {

@@ -1,6 +1,6 @@
-package local.alfonsog.bunnies.model;
+package local.alfonso.gdp.model;
 
-import local.alfonsog.bunnies.exception.ValidationError;
+import local.alfonso.gdp.exception.ValidationError;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
